@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Artículo · K-Andes (prototipo)</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=Unbounded:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilos.css">
+  <!-- Aplica el tema guardado antes de pintar (evita el parpadeo) -->
+  <script>
+    (function () {
+      var d = document.documentElement, t = null;
+      d.classList.add('js');
+      try { t = localStorage.getItem('k-andes-tema'); } catch (e) {}
+      if (!t) { t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      d.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+
+<body>
+  <a class="salto" href="#contenido">Saltar al contenido principal</a>
+
+  <!-- Cabecera: igual que la de index.html, pero los enlaces apuntan a index.html#seccion -->
+  <header class="cabecera">
+    <div class="cabecera__interior contenedor">
+      <a class="logo" href="index.html#inicio">
+        <span class="logo__texto"><span class="logo__k">K</span><span class="logo__guion">-</span>Andes</span>
+        <span class="logo__franja" aria-hidden="true"></span>
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <ul class="menu" id="menu">
+          <li><a href="index.html#editorial">Editorial</a></li>
+          <li><a href="index.html#investigacion">Investigación</a></li>
+          <li><a href="index.html#voces">Voces juveniles</a></li>
+          <li><a href="index.html#aula">Aula y cultura</a></li>
+          <li><a href="index.html#andes-corea">Andes y Corea</a></li>
+          <li><a href="index.html#recursos">Recursos</a></li>
+          <li><a href="index.html#quiz">Quiz</a></li>
+          <li><a href="index.html#contacto">Contacto</a></li>
+          <li><a href="index.html#fuentes">Fuentes</a></li>
+        </ul>
+      </nav>
+
+      <div class="acciones">
+        <button type="button" class="btn-icono" id="btn-tema" aria-pressed="false" aria-label="Modo oscuro">
+          <svg class="icono icono--luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"/></svg>
+          <svg class="icono icono--sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></g></svg>
+        </button>
+        <button type="button" class="btn-icono btn-menu" id="btn-menu" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+          <span class="linea"></span><span class="linea"></span><span class="linea"></span>
+        </button>
+      </div>
+    </div>
+    <div class="franja-andina franja-andina--fina" aria-hidden="true"></div>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <!-- articulo.js dibuja aquí el artículo según el número de la dirección (?id=1 ... ?id=5) -->
+    <div id="articulo-raiz">
+      <div class="contenedor seccion">
+        <p>Cargando artículo…</p>
+        <noscript><p>Para leer los artículos necesitas activar JavaScript. <a href="index.html#investigacion">Volver a Investigación</a></p></noscript>
+      </div>
+    </div>
+  </main>
+
+  <footer class="pie">
+    <div class="franja-andina" aria-hidden="true"></div>
+    <div class="contenedor pie__interior">
+      <p class="pie__logo"><span class="logo__k">K</span>-Andes</p>
+      <p>Revista digital educativa · Prototipo de investigación formativa · Arequipa, Perú.</p>
+      <p class="pie__nota">Todos los textos, testimonios y recursos son ilustrativos. Las imágenes fueron generadas con IA. © 2026 K-Andes.</p>
+      <p><a href="index.html#investigacion">← Volver a Investigación</a></p>
+    </div>
+  </footer>
+
+  <script src="articulo.js"></script>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>K-Andes · Revista digital educativa (prototipo)</title>
+  <meta name="description" content="K-Andes: revista educativa sobre K-pop, identidad juvenil y escuela en el Perú. Prototipo de investigación formativa.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Fuentes de Google: Unbounded (títulos) y Nunito (texto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=Unbounded:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="estilos.css">
+
+  <!-- Mini script inicial: aplica el tema guardado y marca que hay JS.
+       Va aquí (y no en script.js) para evitar parpadeos al cargar. -->
+  <script>
+    (function () {
+      var d = document.documentElement, t = null;
+      d.classList.add('js');
+      try { t = localStorage.getItem('k-andes-tema'); } catch (e) {}
+      if (!t) { t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      d.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+
+<body>
+  <!--
+    NOTA PARA WORDPRESS / JOOMLA
+    - WordPress: dividir este archivo en header.php, footer.php y front-page.php dentro de un tema hijo;
+      cargar estilos.css y script.js con wp_enqueue_style() y wp_enqueue_script(); mover "imagenes/"
+      a la carpeta del tema. Las secciones pueden pasar a ser páginas o entradas (Investigación = entradas).
+    - Joomla: crear una plantilla (index.php + templateDetails.xml), cargar CSS y JS con el Web Asset Manager
+      y convertir los artículos en contenidos de Joomla, mostrados con módulos o menús.
+    - Alternativa rápida: pegar cada sección en bloques "HTML personalizado" y subir CSS y JS al tema.
+  -->
+
+  <!-- Enlaces de salto (visibles al enfocar con Tab) -->
+  <a class="salto" href="#contenido">Saltar al contenido principal</a>
+  <a class="salto salto--2" href="#contacto">Saltar a Contacto</a>
+
+  <!-- ================= CABECERA Y NAVEGACIÓN ================= -->
+  <header class="cabecera">
+    <div class="cabecera__interior contenedor">
+      <a class="logo" href="#inicio">
+        <span class="logo__texto"><span class="logo__k">K</span><span class="logo__guion">-</span>Andes</span>
+        <span class="logo__franja" aria-hidden="true"></span>
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <ul class="menu" id="menu">
+          <li><a href="#editorial">Editorial</a></li>
+          <li><a href="#investigacion">Investigación</a></li>
+          <li><a href="#voces">Voces juveniles</a></li>
+          <li><a href="#aula">Aula y cultura</a></li>
+          <li><a href="#andes-corea">Andes y Corea</a></li>
+          <li><a href="#recursos">Recursos</a></li>
+          <li><a href="#quiz">Quiz</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#fuentes">Fuentes</a></li>
+        </ul>
+      </nav>
+
+      <div class="acciones">
+        <!-- Botón modo claro / oscuro -->
+        <button type="button" class="btn-icono" id="btn-tema" aria-pressed="false" aria-label="Modo oscuro">
+          <svg class="icono icono--luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"/></svg>
+          <svg class="icono icono--sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></g></svg>
+        </button>
+        <!-- Botón hamburguesa (solo móvil) -->
+        <button type="button" class="btn-icono btn-menu" id="btn-menu" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+          <span class="linea"></span><span class="linea"></span><span class="linea"></span>
+        </button>
+      </div>
+    </div>
+    <div class="franja-andina franja-andina--fina" aria-hidden="true"></div>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+
+    <!-- ================= PORTADA ================= -->
+    <section class="hero" id="inicio">
+      <div class="hero__fondo">
+        <img src="imagenes/hero.jpg" width="1920" height="1080"
+             alt="Escenario con luces de colores y siluetas de público, sin personas reconocibles">
+      </div>
+      <span class="hero__brillo hero__brillo--1" aria-hidden="true"></span>
+      <span class="hero__brillo hero__brillo--2" aria-hidden="true"></span>
+
+      <div class="hero__contenido contenedor">
+        <p class="hero__etiqueta">Revista digital educativa · Prototipo</p>
+        <h1 class="hero__titulo"><span class="hero__k">K</span>-Andes</h1>
+        <p class="hero__lema">Entre la ola coreana y nuestras raíces: la juventud peruana se piensa a sí misma.</p>
+        <div class="hero__botones">
+          <a class="btn btn--primario" href="#investigacion">Explorar la revista</a>
+          <a class="btn btn--hero" href="#quiz">Probar el quiz</a>
+        </div>
+      </div>
+      <div class="franja-andina hero__franja" aria-hidden="true"></div>
+    </section>
+
+    <!-- ================= EDITORIAL ================= -->
+    <section class="seccion" id="editorial">
+      <div class="contenedor dos-col">
+        <figure class="figura reveal">
+          <img src="imagenes/editorial.jpg" width="1200" height="800" loading="lazy"
+               alt="Aula de secundaria con estudiantes sentados, vistos de espalda, atendiendo a la clase">
+        </figure>
+        <div class="reveal">
+          <p class="eyebrow">Editorial</p>
+          <h2>Una ola que también es una pregunta</h2>
+          <p class="etiqueta etiqueta--proto">Texto de prototipo</p>
+          <p>Cada generación tiene su ola. La de hoy llega por audífonos, pantallas y redes, y en muchas aulas peruanas suena en coreano. En K-Andes no queremos juzgar esa ola ni convertirnos en un club de fans: queremos entenderla.</p>
+          <p>¿Qué encuentran los adolescentes en una cultura nacida a miles de kilómetros? ¿Qué dice eso de las preguntas que se hacen sobre quiénes son? Y, sobre todo, ¿qué puede hacer la escuela con ese interés?</p>
+          <p>Esta revista mira hacia Corea, pero también hacia casa: hacia los textiles, las lenguas, las montañas y las historias que nos forman. Porque pensar la propia identidad no es elegir entre dos mundos, sino aprender a conversar con ambos.</p>
+          <p class="firma">— Equipo editorial de K-Andes</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="franja-andina franja-andina--rombos" aria-hidden="true"></div>
+
+    <!-- ================= INVESTIGACIÓN ================= -->
+    <section class="seccion seccion--alterna" id="investigacion">
+      <div class="contenedor">
+        <header class="seccion__cabecera reveal">
+          <p class="eyebrow">Investigación</p>
+          <h2>Cinco miradas para entender el fenómeno</h2>
+          <p>Resúmenes de los artículos que desarrollará la revista. <strong>Todos son textos de prototipo</strong>: no contienen datos ni estudios reales, y las fuentes se verificarán antes de publicar.</p>
+        </header>
+
+        <div class="tarjetas" data-escalonado>
+  <article class="tarjeta reveal">
+    <img src="imagenes/articulo-1.jpg" width="800" height="600" loading="lazy"
+         alt="Ilustración generada con IA de unos auriculares sobre un celular y un mapa del mundo">
+    <div class="tarjeta__cuerpo">
+      <p class="etiqueta etiqueta--proto">Prototipo · Artículo 1</p>
+      <h3>Qué es el Hallyu y cómo llegó al Perú</h3>
+      <p>Explicará qué significa Hallyu («ola coreana») y trazará, con fuentes verificadas, el recorrido de la música, las series y otros productos coreanos hasta los jóvenes peruanos.</p>
+      <a class="tarjeta__enlace" href="articulo.html?id=1">Leer el artículo <span class="sr-only">«Qué es el Hallyu y cómo llegó al Perú»</span><span class="flecha" aria-hidden="true">→</span></a>
+    </div>
+  </article>
+
+  <article class="tarjeta reveal">
+    <img src="imagenes/articulo-2.jpg" width="800" height="600" loading="lazy"
+         alt="Ilustración generada con IA de un adolescente con auriculares en silueta, mirando por una ventana">
+    <div class="tarjeta__cuerpo">
+      <p class="etiqueta etiqueta--proto">Prototipo · Artículo 2</p>
+      <h3>El K-pop y la construcción de la identidad en la adolescencia</h3>
+      <p>Reflexionará sobre cómo la música y los grupos de referencia ayudan a los adolescentes a explorar quiénes son, a pertenecer y a diferenciarse, y qué dicen al respecto los enfoques de la psicología del desarrollo.</p>
+      <a class="tarjeta__enlace" href="articulo.html?id=2">Leer el artículo <span class="sr-only">«El K-pop y la construcción de la identidad en la adolescencia»</span><span class="flecha" aria-hidden="true">→</span></a>
+    </div>
+  </article>
+
+  <article class="tarjeta reveal">
+    <img src="imagenes/articulo-3.jpg" width="800" height="600" loading="lazy"
+         alt="Ilustración generada con IA de manos de un estudiante llenando un cuestionario sobre una mesa">
+    <div class="tarjeta__cuerpo">
+      <p class="etiqueta etiqueta--proto">Prototipo · Artículo 3</p>
+      <h3>Propuesta de encuesta a estudiantes de secundaria en Arequipa</h3>
+      <p>Presentará un diseño de encuesta anónima y respetuosa: qué preguntar, cómo redactarlo para 12 a 17 años y qué cuidados éticos y de consentimiento se necesitan. No incluye resultados.</p>
+      <a class="tarjeta__enlace" href="articulo.html?id=3">Leer el artículo <span class="sr-only">«Propuesta de encuesta a estudiantes de secundaria en Arequipa»</span><span class="flecha" aria-hidden="true">→</span></a>
+    </div>
+  </article>
+
+  <article class="tarjeta reveal">
+    <img src="imagenes/articulo-4.jpg" width="800" height="600" loading="lazy"
+         alt="Ilustración generada con IA de estudiantes trabajando en grupo alrededor de una mesa en el aula">
+    <div class="tarjeta__cuerpo">
+      <p class="etiqueta etiqueta--proto">Prototipo · Artículo 4</p>
+      <h3>Cómo usar la cultura juvenil en el aula para trabajar comprensión lectora y ciudadanía</h3>
+      <p>Propondrá estrategias para partir de los intereses de los estudiantes y llevarlos a analizar mensajes, argumentar y convivir con la diferencia, siempre con objetivos de aprendizaje claros.</p>
+      <a class="tarjeta__enlace" href="articulo.html?id=4">Leer el artículo <span class="sr-only">«Cómo usar la cultura juvenil en el aula»</span><span class="flecha" aria-hidden="true">→</span></a>
+    </div>
+  </article>
+
+  <article class="tarjeta reveal">
+    <img src="imagenes/articulo-5.jpg" width="800" height="600" loading="lazy"
+         alt="Ilustración generada con IA de un paisaje de los Andes peruanos con montañas y terrazas">
+    <div class="tarjeta__cuerpo">
+      <p class="etiqueta etiqueta--proto">Prototipo · Artículo 5</p>
+      <h3>Tradición andina y cultura global: un diálogo posible</h3>
+      <p>Explorará cómo las tradiciones andinas y las culturas globales pueden convivir en la identidad de los jóvenes, y por qué reconocerse en una no implica renunciar a la otra.</p>
+      <a class="tarjeta__enlace" href="articulo.html?id=5">Leer el artículo <span class="sr-only">«Tradición andina y cultura global: un diálogo posible»</span><span class="flecha" aria-hidden="true">→</span></a>
+    </div>
+  </article>
+</div>
+      </div>
+    </section>
+
+    <!-- ================= VOCES JUVENILES ================= -->
+    <section class="seccion" id="voces">
+      <div class="contenedor">
+        <header class="seccion__cabecera reveal">
+          <p class="eyebrow">Voces juveniles</p>
+          <h2>Lo que podrían decir</h2>
+          <p><strong>Estos testimonios son ficticios</strong>: los redactamos como ejemplo para mostrar el formato de la sección. No son de personas reales.</p>
+        </header>
+
+        <div class="tarjetas tarjetas--voces" data-escalonado>
+          <figure class="voz reveal">
+            <span class="etiqueta etiqueta--proto">Testimonio ilustrativo</span>
+            <blockquote><p>Escucho esta música con mis amigas y siento que podemos hablar de cosas que en otros lugares no sabemos cómo decir.</p></blockquote>
+            <figcaption><span class="avatar" aria-hidden="true">C</span><span><strong>Camila</strong> (nombre ficticio)<br>15 años · estudiante de ejemplo</span></figcaption>
+          </figure>
+
+          <figure class="voz reveal">
+            <span class="etiqueta etiqueta--proto">Testimonio ilustrativo</span>
+            <blockquote><p>Me gusta aprender cosas de Corea, pero también me da curiosidad saber qué canciones y danzas hay en mi región.</p></blockquote>
+            <figcaption><span class="avatar avatar--2" aria-hidden="true">D</span><span><strong>Diego</strong> (nombre ficticio)<br>13 años · estudiante de ejemplo</span></figcaption>
+          </figure>
+
+          <figure class="voz reveal">
+            <span class="etiqueta etiqueta--proto">Testimonio ilustrativo</span>
+            <blockquote><p>Cuando partimos de lo que les interesa, participan con más ganas. El reto es que además aprendan a analizar lo que consumen.</p></blockquote>
+            <figcaption><span class="avatar avatar--3" aria-hidden="true">R</span><span><strong>Profesora Rosa</strong> (nombre ficticio)<br>Docente de ejemplo</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= AULA Y CULTURA ================= -->
+    <section class="seccion seccion--alterna" id="aula">
+      <div class="contenedor dos-col dos-col--invertida">
+        <div class="reveal">
+          <p class="eyebrow">Aula y cultura</p>
+          <h2>Actividad: «Mi ola, mis raíces»</h2>
+          <p class="etiqueta etiqueta--proto">Propuesta de prototipo</p>
+          <p><strong>Duración sugerida:</strong> dos sesiones de 45 minutos (ajustable). <strong>Materiales:</strong> cuaderno, hojas o cartulinas y plumones.</p>
+          <ol class="pasos" role="list">
+            <li><strong>Escucho y registro.</strong> Cada estudiante elige un producto cultural que disfruta (una canción, una serie, un baile) y escribe en tres oraciones por qué le gusta. Se trabaja con ideas propias, sin copiar letras.</li>
+            <li><strong>Conecto con mis raíces.</strong> Busca algo de su familia o de Arequipa que le diga algo parecido: un plato, una música, un tejido, una historia. Lo compara con su primer producto en un cuadro de dos columnas.</li>
+            <li><strong>Dialogo y concluyo.</strong> En grupos comparten sus cuadros y elaboran un afiche o un texto breve titulado «Lo que nos une». Luego lo presentan al resto de la clase.</li>
+          </ol>
+        </div>
+        <figure class="figura reveal">
+          <img src="imagenes/aula-actividad.jpg" width="1000" height="700" loading="lazy"
+               alt="Adolescentes debatiendo y trabajando con cartulinas durante una actividad en el aula">
+        </figure>
+      </div>
+    </section>
+
+    <!-- ================= ANDES Y COREA ================= -->
+    <section class="seccion" id="andes-corea">
+      <div class="contenedor">
+        <header class="seccion__cabecera reveal">
+          <p class="eyebrow">Andes y Corea</p>
+          <h2>Dos culturas, muchas preguntas</h2>
+          <p>Una comparación sencilla para abrir la conversación. Es <strong>ilustrativa y simplificada</strong>: no pretende resumir culturas enteras.</p>
+        </header>
+
+        <div class="duo" data-escalonado>
+          <figure class="figura reveal">
+            <img src="imagenes/andes.jpg" width="1000" height="600" loading="lazy"
+                 alt="Primer plano de un textil andino tejido a mano con patrones geométricos de colores">
+            <figcaption>Tejido andino</figcaption>
+          </figure>
+          <figure class="figura reveal">
+            <img src="imagenes/corea.jpg" width="1000" height="600" loading="lazy"
+                 alt="Vista de la ciudad de Seúl o de arquitectura tradicional coreana, sin personas ni carteles">
+            <figcaption>Imagen de Corea</figcaption>
+          </figure>
+        </div>
+
+        <div class="tabla-caja reveal" role="region" aria-labelledby="tabla-titulo" tabindex="0">
+          <table class="tabla">
+            <caption id="tabla-titulo">Comparación ilustrativa entre elementos culturales andinos y coreanos</caption>
+            <thead>
+              <tr>
+                <th scope="col">Elemento</th>
+                <th scope="col">Andes (Perú)</th>
+                <th scope="col">Corea</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Lengua</th><td>Español, quechua, aimara y otras lenguas originarias</td><td>Coreano, escrito en hangul</td></tr>
+              <tr><th scope="row">Música tradicional</th><td>Quena, zampoña, charango</td><td>Pansori, gayageum</td></tr>
+              <tr><th scope="row">Textiles y vestimenta</th><td>Tejidos andinos con patrones geométricos</td><td>Hanbok</td></tr>
+              <tr><th scope="row">Fiestas</th><td>Inti Raymi, fiestas patronales y carnavales</td><td>Chuseok (fiesta de la cosecha) y Seollal (Año Nuevo lunar)</td></tr>
+              <tr><th scope="row">Alimentos</th><td>Papa, maíz, quinua, rocoto relleno (Arequipa)</td><td>Arroz, kimchi, bibimbap</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RECURSOS ================= -->
+    <section class="seccion seccion--alterna" id="recursos">
+      <div class="contenedor">
+        <header class="seccion__cabecera reveal">
+          <p class="eyebrow">Recursos</p>
+          <h2>Biblioteca de la revista</h2>
+          <p>Fichas de <strong>ejemplo</strong> para mostrar cómo funcionará la biblioteca. Los enlaces se agregarán cuando el equipo verifique cada recurso.</p>
+        </header>
+
+        <!-- Filtros: el JS lee data-filtro y compara con data-categoria de cada tarjeta -->
+        <div class="filtros reveal" role="group" aria-label="Filtrar recursos por categoría">
+          <button type="button" class="filtro" data-filtro="todos" aria-pressed="true">Todos</button>
+          <button type="button" class="filtro" data-filtro="lecturas" aria-pressed="false">Lecturas</button>
+          <button type="button" class="filtro" data-filtro="videos" aria-pressed="false">Videos</button>
+          <button type="button" class="filtro" data-filtro="podcasts" aria-pressed="false">Podcasts</button>
+          <button type="button" class="filtro" data-filtro="guias" aria-pressed="false">Guías didácticas</button>
+        </div>
+        <p class="filtro-estado" id="filtro-estado" role="status" aria-live="polite">Mostrando 6 recursos</p>
+
+        <div class="tarjetas" id="lista-recursos">
+          <article class="tarjeta recurso reveal" data-categoria="lecturas">
+            <img src="imagenes/recurso-lectura.jpg" width="600" height="400" loading="lazy" alt="Libros y revistas abiertos sobre una mesa de lectura">
+            <div class="tarjeta__cuerpo">
+              <p class="etiqueta">Lecturas</p>
+              <h3>Guía de lectura: identidad y cultura juvenil</h3>
+              <p class="nota">Recurso de ejemplo · enlace por completar</p>
+            </div>
+          </article>
+
+          <article class="tarjeta recurso reveal" data-categoria="videos">
+            <img src="imagenes/recurso-video.jpg" width="600" height="400" loading="lazy" alt="Laptop con una pantalla encendida mostrando un video en un aula">
+            <div class="tarjeta__cuerpo">
+              <p class="etiqueta">Videos</p>
+              <h3>Video breve: ¿qué es la cultura global?</h3>
+              <p class="nota">Recurso de ejemplo · enlace por completar</p>
+            </div>
+          </article>
+
+          <article class="tarjeta recurso reveal" data-categoria="podcasts">
+            <img src="imagenes/recurso-podcast.jpg" width="600" height="400" loading="lazy" alt="Micrófono de estudio junto a unos audífonos sobre un escritorio">
+            <div class="tarjeta__cuerpo">
+              <p class="etiqueta">Podcasts</p>
+              <h3>Episodio: conversar sobre identidad en clase</h3>
+              <p class="nota">Recurso de ejemplo · enlace por completar</p>
+            </div>
+          </article>
+
+          <article class="tarjeta recurso reveal" data-categoria="guias">
+            <img src="imagenes/recurso-guia.jpg" width="600" height="400" loading="lazy" alt="Cuaderno, lápices y notas adhesivas sobre un escritorio de trabajo">
+            <div class="tarjeta__cuerpo">
+              <p class="etiqueta">Guías didácticas</p>
+              <h3>Ficha para analizar un video musical sin copiar su letra</h3>
+              <p class="nota">Recurso de ejemplo · enlace por completar</p>
+            </div>
+          </article>
+
+          <article class="tarjeta recurso reveal" data-categoria="lecturas">
+            <img src="imagenes/recurso-lectura.jpg" width="600" height="400" loading="lazy" alt="Libros y revistas abiertos sobre una mesa de lectura">
+            <div class="tarjeta__cuerpo">
+              <p class="etiqueta">Lecturas</p>
+              <h3>Selección de textos andinos para el aula</h3>
+              <p class="nota">Recurso de ejemplo · enlace por completar</p>
+            </div>
+          </article>
+
+          <article class="tarjeta recurso reveal" data-categoria="guias">
+            <img src="imagenes/recurso-guia.jpg" width="600" height="400" loading="lazy" alt="Cuaderno, lápices y notas adhesivas sobre un escritorio de trabajo">
+            <div class="tarjeta__cuerpo">
+              <p class="etiqueta">Guías didácticas</p>
+              <h3>Plantilla de encuesta escolar anónima</h3>
+              <p class="nota">Recurso de ejemplo · enlace por completar</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= QUIZ ================= -->
+    <section class="seccion" id="quiz">
+      <div class="contenedor contenedor--estrecho">
+        <header class="seccion__cabecera reveal">
+          <p class="eyebrow">Quiz</p>
+          <h2>¿Cuánto recuerdas?</h2>
+          <p>Tres preguntas rápidas con respuesta inmediata.</p>
+        </header>
+        <!-- El contenido del quiz lo genera script.js -->
+        <div class="quiz reveal" id="quiz-contenido"></div>
+        <noscript><p>Para usar el quiz necesitas activar JavaScript.</p></noscript>
+      </div>
+    </section>
+
+    <!-- ================= CONTACTO ================= -->
+    <section class="seccion seccion--alterna" id="contacto">
+      <div class="contenedor contenedor--estrecho">
+        <header class="seccion__cabecera reveal">
+          <p class="eyebrow">Contacto y retroalimentación</p>
+          <h2>Cuéntanos qué piensas</h2>
+          <p>Este formulario es <strong>solo visual</strong>: valida los campos, pero no envía ni guarda ningún dato. Por favor, no escribas información personal real.</p>
+        </header>
+
+        <form class="formulario reveal" id="form-contacto" novalidate>
+          <div class="campo">
+            <label for="apodo">Seudónimo (opcional)</label>
+            <input type="text" id="apodo" name="apodo" maxlength="30" autocomplete="off" aria-describedby="apodo-ayuda apodo-error">
+            <small id="apodo-ayuda">Usa un nombre inventado. No escribas tu nombre real, correo ni teléfono.</small>
+            <span class="campo__error" id="apodo-error"></span>
+          </div>
+
+          <div class="campo">
+            <label for="rol">¿Cómo participas en la revista? <span class="req">(obligatorio)</span></label>
+            <select id="rol" name="rol" required aria-describedby="rol-error">
+              <option value="">Elige una opción</option>
+              <option value="docente">Docente de secundaria</option>
+              <option value="universitario">Estudiante de educación</option>
+              <option value="adolescente">Estudiante de secundaria</option>
+              <option value="otro">Otro</option>
+            </select>
+            <span class="campo__error" id="rol-error"></span>
+          </div>
+
+          <div class="campo">
+            <label for="seccion-favorita">¿Qué sección te interesó más? (opcional)</label>
+            <select id="seccion-favorita" name="seccion-favorita">
+              <option value="">Sin preferencia</option>
+              <option>Investigación</option>
+              <option>Voces juveniles</option>
+              <option>Aula y cultura</option>
+              <option>Andes y Corea</option>
+              <option>Recursos</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="mensaje">Tu comentario <span class="req">(obligatorio, mínimo 10 caracteres)</span></label>
+            <textarea id="mensaje" name="mensaje" rows="5" maxlength="400" required aria-describedby="mensaje-error"></textarea>
+            <span class="campo__error" id="mensaje-error"></span>
+          </div>
+
+          <div class="campo campo--check">
+            <input type="checkbox" id="acuerdo" name="acuerdo" required aria-describedby="acuerdo-error">
+            <label for="acuerdo">Entiendo que este formulario es una demostración visual y no envía información.</label>
+            <span class="campo__error" id="acuerdo-error"></span>
+          </div>
+
+          <button type="submit" class="btn btn--primario">Probar validación</button>
+          <p class="form__estado" id="form-estado" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= FUENTES Y CRÉDITOS ================= -->
+    <section class="seccion" id="fuentes">
+      <div class="contenedor">
+        <header class="seccion__cabecera reveal">
+          <p class="eyebrow">Fuentes y créditos</p>
+          <h2>De dónde sale lo que ves</h2>
+          <p>Esta sección está lista para completarse. No se incluyó ninguna fuente ni enlace que no haya sido verificado.</p>
+        </header>
+
+        <div class="dos-col dos-col--textos">
+          <div class="reveal">
+            <h3>Fuentes bibliográficas</h3>
+            <ul class="lista">
+  <li>Currículo Nacional de la Educación Básica (Ministerio de Educación del Perú): para vincular la actividad con competencias. <em>Por verificar y citar.</em></li>
+  <li>Estudios sobre identidad en la adolescencia (psicología del desarrollo): <em>por seleccionar y citar con autor, año y enlace.</em></li>
+  <li>Estudios sobre el Hallyu en América Latina: <em>por seleccionar y citar con autor, año y enlace.</em></li>
+</ul>
+          </div>
+          <div class="reveal">
+            <h3>Otros créditos</h3>
+            <ul class="lista">
+              <li>Tipografías: Unbounded y Nunito, de Google Fonts (licencia SIL Open Font License).</li>
+              <li>Íconos y logo: dibujados con SVG y CSS para este prototipo.</li>
+              <li>Textos: redactados como prototipo; no son resultados de investigación.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="reveal"><strong>Todas las imágenes de este prototipo fueron generadas con inteligencia artificial.</strong> Son ilustraciones, no fotografías de personas o lugares reales. No muestran artistas ni marcas.</p>
+
+<div class="tabla-caja reveal" role="region" aria-labelledby="creditos-titulo" tabindex="0">
+  <table class="tabla tabla--creditos">
+    <caption id="creditos-titulo">Créditos de imágenes generadas con IA</caption>
+    <thead>
+      <tr><th scope="col">Archivo</th><th scope="col">Origen</th><th scope="col">Herramienta y fecha</th><th scope="col">Uso en la revista</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">hero.jpg</th><td>Generada con IA</td><td>[nombre de la herramienta · fecha]</td><td>Portada</td></tr>
+      <tr><th scope="row">editorial.jpg</th><td>Generada con IA</td><td>[nombre de la herramienta · fecha]</td><td>Editorial</td></tr>
+      <tr><th scope="row">articulo-1.jpg a articulo-5.jpg</th><td>Generadas con IA</td><td>[nombre de la herramienta · fecha]</td><td>Tarjetas de Investigación</td></tr>
+      <tr><th scope="row">aula-actividad.jpg</th><td>Generada con IA</td><td>[nombre de la herramienta · fecha]</td><td>Aula y cultura</td></tr>
+      <tr><th scope="row">andes.jpg y corea.jpg</th><td>Generadas con IA</td><td>[nombre de la herramienta · fecha]</td><td>Andes y Corea</td></tr>
+      <tr><th scope="row">recurso-lectura.jpg, recurso-video.jpg, recurso-podcast.jpg, recurso-guia.jpg</th><td>Generadas con IA</td><td>[nombre de la herramienta · fecha]</td><td>Recursos</td></tr>
+    </tbody>
+  </table>
+</div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= PIE DE PÁGINA ================= -->
+  <footer class="pie">
+    <div class="franja-andina" aria-hidden="true"></div>
+    <div class="contenedor pie__interior">
+      <p class="pie__logo"><span class="logo__k">K</span>-Andes</p>
+      <p>Revista digital educativa · Prototipo de investigación formativa · Arequipa, Perú.</p>
+      <p class="pie__nota">Todos los textos, testimonios y recursos son ilustrativos. © 2026 K-Andes.</p>
+      <p><a href="#inicio">Volver al inicio ↑</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
